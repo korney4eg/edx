@@ -1,0 +1,26 @@
+{
+  "mainFile": "C:/Python27/lessons/ProblemSet6/ps6.py", 
+  "venv": "", 
+  "relatedProjects": [], 
+  "name": "ProblemSet6", 
+  "license": "MIT License", 
+  "url": "", 
+  "pythonPath": "C:/Python27/python.exe", 
+  "preExecScript": "", 
+  "programParams": "", 
+  "PYTHONPATH": "", 
+  "supported-extensions": [
+    ".py", 
+    ".html", 
+    ".jpg", 
+    ".png", 
+    ".ui", 
+    ".css", 
+    ".json", 
+    ".js", 
+    ".ini"
+  ], 
+  "project-type": "simple", 
+  "postExecScript": "", 
+  "description": ""
+}
