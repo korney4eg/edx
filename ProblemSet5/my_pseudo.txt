@@ -1,0 +1,5 @@
+for i in 26 
+	a = coded text by i
+	search correct words in a
+	if number of correct words >=3 then 
+	it is a right one
