@@ -231,11 +231,6 @@ class Robot(object):
         Move the robot to a new position and mark the tile it is on as having
         been cleaned.
         """
-#        newX = self.x + speed * math.cos(direction * math.pi / 180)
-#        newY = self.y + speed * math.sin(direction * math.pi / 180)
-#        if isPositionInRoom(Position(newX,newY)):
-#            self.x = newX
-#            self.y = newY
         raise NotImplementedError # don't change this!
 
 ###Problem 1 tests
@@ -309,40 +304,38 @@ def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
     robot_type: class of robot to be instantiated (e.g. StandardRobot or
                 RandomWalkRobot)
     """
-    def printRoom(room,bot,num):
-        wall = room.width * '--'
-        for j in range(room.height):
-            for i in range(room.width):
-                if int(bot.position.getX())==i and int(bot.position.getY()==j):
-                    print num,
-                elif room.isTileCleaned(i,j):
-                    print '.',
-                else:
-                    print '#',
-            print '|',
-            print
-        print wall
-    room = RectangularRoom(width, height)
-    #anim = ps7_visualize.RobotVisualization(num_robots, width, height)
-    robot = []
-    for i in range(num_robots):
-        robot.append(robot_type(room, speed)) 
-    cleaned = room.getNumCleanedTiles()
-    trials = 1
-    while (trials <= num_trials) and (float(room.getNumCleanedTiles())/room.getNumTiles() < min_coverage):
+#    def printRoom(room,bot,num):
+#        wall = room.width * '--'
+#        for j in range(room.height):
+#            for i in range(room.width):
+#                if int(bot.position.getX())==i and int(bot.position.getY()==j):
+#                    print num,
+#                elif room.isTileCleaned(i,j):
+#                    print '.',
+#                else:
+#                    print '#',
+#            print '|',
+#            print
+#        print wall
+    cleans=[]
+    for steps in range(num_trials):
+        room = RectangularRoom(width, height)
+        #anim = ps7_visualize.RobotVisualization(num_robots, width, height)
+        robot = []
         for i in range(num_robots):
-            robot[i].updatePositionAndClean()
-#            anim.update(room, robot)
-        trials += 1
-        #printRoom(room,robot[i],i+1)
-        print float(room.getNumCleanedTiles())/room.getNumTiles()
-#    anim.done()
+            robot.append(robot_type(room, speed)) 
+        cleaned = room.getNumCleanedTiles()
+        trials = 0
+        while  (float(room.getNumCleanedTiles())/room.getNumTiles() < min_coverage):
+            for i in range(num_robots):
+                robot[i].updatePositionAndClean()
+                #anim.update(room, robot)
+            trials += 1
+        #anim.done()
+        cleans.append(trials)
     
-    return trials
+    return float(sum(cleans))/num_trials
 
-#avg = runSimulation(2, 1.0, 10, 12, 0.96, 130, TestRobot)
-avg2 = runSimulation(1, 2.0, 10, 12, 0.96, 150, StandardRobot)
-print  avg2
 # === Problem 4
 class RandomWalkRobot(Robot):
     """
@@ -356,16 +349,21 @@ class RandomWalkRobot(Robot):
         Move the robot to a new position and mark the tile it is on as having
         been cleaned.
         """
-        raise NotImplementedError
+        self.direction = random.randrange(360)
+        while not self.room.isPositionInRoom(self.position.getNewPosition(self.direction, self.speed)):
+            self.direction = random.randrange(360)
+        self.position = self.position.getNewPosition(self.direction, self.speed)
+        self.room.cleanTileAtPosition(self.position)
+        #raise NotImplementedError
 
-
+#avg = runSimulation(1, 0.5, 5, 5, 1, 130, RandomWalkRobot)
 # === Problem 5
 #
 # 1) Write a function call to showPlot1 that generates an appropriately-labeled
 #     plot.
 #
 #       (... your call here ...)
-#
+
 
 #
 # 2) Write a function call to showPlot2 that generates an appropriately-labeled
@@ -415,4 +413,3 @@ def showPlot2(title, x_label, y_label):
     pylab.xlabel(x_label)
     pylab.ylabel(y_label)
     pylab.show()
-    
