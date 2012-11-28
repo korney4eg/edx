@@ -1,7 +1,7 @@
 import random
 
 def rollDie():
-    return random.choice([1,2,3,4,5,6])
+    return random.choice([1,2,3,4])
 
 def rollN(n):
     result = ''
@@ -37,5 +37,15 @@ def atLeastOneOne(numRolls, numTrials):
             numSuccess += 1
         fracSuccess = numSuccess/float(numTrials)
     print fracSuccess
-
-atLeastOneOne(10, 1000)
+    
+    
+def evenDice(numRolls, numTrials):
+    numSuccess = 0
+    for i in range(numTrials):
+        rolls = rollN(numRolls)
+        if '1' in rolls:
+            numSuccess += 1
+        fracSuccess = numSuccess/float(numTrials)
+    print fracSuccess
+    
+#atLeastOneOne(10, 1000)
