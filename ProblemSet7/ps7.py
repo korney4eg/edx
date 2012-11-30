@@ -280,7 +280,7 @@ class StandardRobot(Robot):
         #raise NotImplementedError
 
 # Uncomment this line to see your implementation of StandardRobot in action!
-testRobotMovement(StandardRobot, RectangularRoom)
+#testRobotMovement(StandardRobot, RectangularRoom)
 
 
 # === Problem 3
